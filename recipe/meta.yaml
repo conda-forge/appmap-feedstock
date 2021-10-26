@@ -16,6 +16,7 @@ build:
   entry_points:
     - appmap-agent-init = appmap.command.appmap_agent_init:run
     - appmap-agent-status = appmap.command.appmap_agent_status:run
+    - appmap-agent-validate = appmap.command.appmap_agent_validate:run
   script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
@@ -37,6 +38,7 @@ test:
     - pip check
     - appmap-agent-init --help
     - appmap-agent-status --help
+    - appmap-agent-validate --help
   requires:
     - pip
 
