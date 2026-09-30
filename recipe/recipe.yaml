@@ -1,0 +1,71 @@
+schema_version: 1
+
+context:
+  version: "3.0.1"
+
+package:
+  name: appmap
+  version: ${{ version }}
+
+source:
+  url: https://pypi.org/packages/source/a/appmap/appmap-${{ version }}.tar.gz
+  sha256: bf61b7693f5c6b6dade6e6f06fd915f8ed7ea0772176ee285b2a97ccd2be9a88
+
+build:
+  number: 0
+  noarch: python
+  script: ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  python:
+    entry_points:
+      - appmap-agent-init = appmap.command.appmap_agent_init:run
+      - appmap-agent-status = appmap.command.appmap_agent_status:run
+      - appmap-agent-validate = appmap.command.appmap_agent_validate:run
+      - appmap-python = appmap.command.runner:run
+
+requirements:
+  host:
+    - python ${{ python_min }}.*
+    - pip
+    - hatchling
+  run:
+    - python >=${{ python_min }}
+    - importlib-resources >=5.4.0
+    - inflection >=0.3.0
+    - packaging >=19.0
+    - pyyaml >=5.3.0
+
+tests:
+  - python:
+      imports:
+        - appmap
+        - _appmap
+      pip_check: true
+      python_version:
+        - ${{ python_min }}.*
+        - "*"
+  - script:
+      - appmap-agent-init --help
+      - appmap-agent-status --help
+      - python -c "from appmap.command import appmap_agent_init, appmap_agent_status, appmap_agent_validate, runner"
+    requirements:
+      run:
+        - python ${{ python_min }}.*
+
+about:
+  homepage: https://github.com/getappmap/appmap-python
+  repository: https://github.com/getappmap/appmap-python
+  license: MIT AND BSD-2-Clause
+  license_file:
+    - LICENSE
+    - _appmap/wrapt/LICENSE
+  summary: Create AppMap files by recording a Python application
+  description: |
+    appmap records the execution of a Python application and writes AppMap
+    files describing what ran: the functions called, the HTTP requests
+    served and the SQL issued. It hooks Django, Flask, FastAPI, SQLAlchemy,
+    pytest and unittest, and the recordings can be explored in the AppMap
+    viewers for VS Code and JetBrains.
+
+extra:
+  recipe-maintainers:
+    - ickc
