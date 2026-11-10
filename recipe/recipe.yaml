@@ -1,7 +1,7 @@
 schema_version: 1
 
 context:
-  version: "3.0.1"
+  version: "4.0.0"
 
 package:
   name: appmap
@@ -9,9 +9,9 @@ package:
 
 source:
   url:
-    - https://files.pythonhosted.org/packages/93/d1/0347ade599baf7ccc6d8824a682e2f5198380510471b3738b9eff43a8cea/appmap-${{ version }}.tar.gz
+    - https://files.pythonhosted.org/packages/1a/73/fb073b0ac52a70cfae604f23eecbf99f19080deb1b135924949b99cdfdee/appmap-${{ version }}.tar.gz
     - https://pypi.org/packages/source/a/appmap/appmap-${{ version }}.tar.gz
-  sha256: bf61b7693f5c6b6dade6e6f06fd915f8ed7ea0772176ee285b2a97ccd2be9a88
+  sha256: adc5da879772362bca7eab2a3ee01475da793546b88f40caa78d39865f7a2a09
 
 build:
   number: 0
